@@ -1,7 +1,7 @@
 from flask import Flask, Response, request
 import json
 from flask_cors import CORS
-# from database_methods import main_db
+from database_methods import main_db
 
 app = Flask(__name__)
 CORS(app)

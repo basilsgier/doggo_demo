@@ -1,4 +1,5 @@
-from backend.config import DB_PASSWORD, DB_NAME
+import pymysql
+from config import DB_PASSWORD, DB_NAME
 
 connection = pymysql.connect(
     host='localhost',
