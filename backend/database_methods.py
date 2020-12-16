@@ -198,6 +198,8 @@ def get_requests(cursor, args):
         query = f"SELECT * FROM requests WHERE receiver_id = '{_id}';"
         cursor.execute(query)
         res = cursor.fetchall()
+        dogs = main_db('get_dogs', _id)
+        res['dog'] = dogs
         if len(res) == 0:
             return {}
         return res
