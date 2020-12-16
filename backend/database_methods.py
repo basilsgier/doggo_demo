@@ -6,7 +6,8 @@ def add_new_user(cursor, args):
     user = args[0]
     table_name = 'user'
     temp_user = {}
-    attributes = {'id', 'first_name', 'last_name', 'user_name', 'password', 'age', 'gender', 'city', 'phone_number', 'status'}
+    attributes = {'id', 'first_name', 'last_name', 'user_name', 'password', 'age', 'gender', 'city', 'phone_number',
+                  'status'}
     for attribute in attributes:
         temp_user[attribute] = user.get(attribute, None)
     try:
@@ -170,12 +171,25 @@ def change_status(cursor, args):
     try:
         _id = args[0]
         result = args[1]
+        print("CHANGE", _id, result)
         query = f"UPDATE user SET status = {result} WHERE id = '{_id}';"
         cursor.execute(query)
         connection.commit()
     except Exception as e:
         return {'error': 500, 'details': 'getting on status friends' + str(e)}
 
+
+def get_user(cursor, args):
+    try:
+        _id = args[0]
+        query = f"SELECT * FROM user WHERE id = '{_id}';"
+        cursor.execute(query)
+        res = cursor.fetchall()
+        if len(res) == 0:
+            return {}
+        return res[0]
+    except Exception as e:
+        return {'error': 500, 'details': 'getting user' + str(e)}
 
 
 def main_db(action, *args):
@@ -197,6 +211,8 @@ def main_db(action, *args):
                 return status_on_friends(cursor, args)
             elif action == 'get_dogs':
                 return get_dogs(cursor, args)
+            elif action == 'get_user':
+                return get_user(cursor, args)
             elif action == 'change_status':
                 return change_status(cursor, args)
             else:
@@ -257,7 +273,6 @@ new_user4 = {
     'status': 0
 }
 
-
 new_dog1 = {
     "id": "0",
     'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
@@ -265,7 +280,6 @@ new_dog1 = {
     'description': "a lovely husky dog 4 months old",
     'owner_id': 2,
 }
-
 
 new_dog2 = {
     "id": "0",
@@ -275,7 +289,7 @@ new_dog2 = {
     'owner_id': 4,
 }
 
-
+#
 # print(main_db('new_user', new_user1))
 # print(main_db('new_user', new_user2))
 # print(main_db('new_user', new_user3))

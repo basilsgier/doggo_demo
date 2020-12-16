@@ -88,39 +88,67 @@ const IOSSwitch  = withStyles((theme) => ({
 
 }))(Switch);
 
+let user_id = 2;
 function Profile(props){ /*need to get props */
-/*<Profile data= {}>
-let user = props.data
-*/
-var props = {
-    "logedin_id": "0",
-    'first_name': "Amjad",
-    'last_name': "Bashiti",
-    'user_name': "amjad.love",
-    'password': "555",
-    'age': 24,
-    'gender': "Male",
-    'city': "Yassef",
-    'phone_number': "0526488801",
-    'img_url': '/static/pictures/Capture.PNG'
-    };
+const [firstTime, setFirstTime] = React.useState(true);
+const [state, setState] = React.useState({});
+if (firstTime)
+{
+    
+    let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/");
+    fetch(url, {
+      method: "GET",
+      headers: {'Content-Type':'application/json'},
+    })
+      .then((res) => res.json())
+      .then((finalRes) => {setState(finalRes);
+                    console.log("RES", finalRes, state); 
+                    setFirstTime(false);})
+      .catch((error) => {console.log(error)});
+    
+}
+
+// var props = {
+//     "logedin_id": "0",
+//     'first_name': "Amjad",
+//     'last_name': "Bashiti",
+//     'user_name': "amjad.love",
+//     'password': "555",
+//     'age': 24,
+//     'gender': "Male",
+//     'city': "Yassef",
+//     'phone_number': "0526488801",
+//     'img_url': '/static/pictures/Capture.PNG'
+//     };
    /*card */
   const cardClasses = cardStyles();
   const bull = <span className={cardClasses.bullet}>•</span>;
   const avatarClasses = avatarStyles();
 
 
-  /*switch */
-  const [state, setState] = React.useState({
-    available: false
-  });
+  
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     /*send to route */
+    let status = event.target.checked ? 1 : 0;
+    let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/" + status  + '/');
+    fetch(url, {
+      method: "PUT",
+      headers: {'Content-Type':'application/json'},
+    })
+      .then((res) => res.json())
+      .then((finalRes) => {
+                    console.log("STATUS", finalRes);})
+      .catch((error) => {console.log(error)});
   };
 
   return (
+      <div>
+
+      
+        {firstTime ? null :  
+
       <div
         style={{
           display: "flex",
@@ -136,10 +164,10 @@ var props = {
     </div>
 
         }
-       title={props["user_name"]}
+       title={state["user_name"]}
              />
       <FormControlLabel
-        control={<IOSSwitch checked={state.available} onChange={handleChange} name="available" />}
+        control={<IOSSwitch checked={state.status} onChange={handleChange} name="status" />}
         label="Available"
       />
       <CardMedia
@@ -149,27 +177,27 @@ var props = {
       />
       <CardContent>
         <Typography variant="h6" color="initial" component="p">
-            <b>First Name :  </b>  {props["first_name"]}
+            <b>First Name :  </b>  {state["first_name"]}
         </Typography>
 
         <Typography variant="h6" color="initial" component="p">
-            <b>Last Name :  </b>  {props["last_name"]}
+            <b>Last Name :  </b>  {state["last_name"]}
         </Typography>
 
          <Typography variant="h6" color="initial" component="p">
-            <b>Age :  </b>  {props["age"]}
+            <b>Age :  </b>  {state["age"]}
         </Typography>
 
         <Typography variant="h6" color="initial" component="p">
-            <b>Gender :  </b>  {props["gender"]}
+            <b>Gender :  </b>  {state["gender"]}
         </Typography>
 
         <Typography variant="h6" color="initial" component="p">
-            <b>City :  </b>  {props["city"]}
+            <b>City :  </b>  {state["city"]}
         </Typography>
 
         <Typography variant="h6" color="initial" component="p">
-            <b>Phone :  </b>  {props["phone_number"]}
+            <b>Phone :  </b>  {state["phone_number"]}
         </Typography>
 
       </CardContent>
@@ -184,7 +212,8 @@ var props = {
 
 </Card>
 </div>
-
+        } 
+        </div>
   );
 }
 
