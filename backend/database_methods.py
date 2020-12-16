@@ -7,7 +7,7 @@ def add_new_user(cursor, args):
     table_name = 'user'
     temp_user = {}
     attributes = {'id', 'first_name', 'last_name', 'user_name', 'password', 'age', 'gender', 'city', 'phone_number',
-                  'status'}
+                  'status', 'image_url'}
     for attribute in attributes:
         temp_user[attribute] = user.get(attribute, None)
     try:
@@ -198,12 +198,21 @@ def get_requests(cursor, args):
         query = f"SELECT * FROM requests WHERE receiver_id = '{_id}';"
         cursor.execute(query)
         res = cursor.fetchall()
+        print(_id, res)
         if len(res) == 0:
             return []
-        for user in res:
-            user['dog'] = main_db('get_dogs', user['id'])
-            user['status'] = 'not_responded'
-        return res
+
+        query = f"SELECT * FROM user;"
+        cursor.execute(query)
+        users = cursor.fetchall()
+        sender_ids = set([val['sender_id'] for val in res])
+        final_res = []
+        for user in users:
+            if user['id'] in sender_ids:
+                user['dog'] = main_db('get_dogs', user['id'])
+                user['status'] = 'not_responded'
+                final_res.append(user)
+        return final_res
     except Exception as e:
         return {'error': 500, 'details': 'getting user' + str(e)}
 
@@ -248,8 +257,11 @@ new_user1 = {
     'age': 25,
     'gender': "M",
     'city': "Haifa",
+
     'phone_number': "0533013218",
-    'status': 0
+    'status': 0,
+    'image_url': 'Capture2.jpeg',
+
 }
 
 new_user2 = {
@@ -261,8 +273,10 @@ new_user2 = {
     'age': 25,
     'gender': "F",
     'city': "Yaseef",
+
     'phone_number': "054421313",
-    'status': 0
+    'status': 0,
+'image_url': 'Capture.PNG',
 }
 
 new_user3 = {
@@ -274,8 +288,10 @@ new_user3 = {
     'age': 24,
     'gender': "M",
     'city': "Yaseef",
+
     'phone_number': "0599321313",
-    'status': 0
+    'status': 0,
+    'image_url': 'Capture.PNG'
 }
 
 new_user4 = {
@@ -287,8 +303,10 @@ new_user4 = {
     'age': 32,
     'gender': "M",
     'city': "Yaseef",
+
     'phone_number': "053321313",
-    'status': 0
+    'status': 0,
+'image_url': 'Capture2.jpeg'
 }
 
 new_dog1 = {
@@ -296,7 +314,7 @@ new_dog1 = {
     'photo_url': "Capture.PNG",
     'dog_name': "shane",
     'description': "a lovely husky dog 4 months old",
-    'owner_id': 2
+    'owner_id': 1
 }
 
 new_dog2 = {
@@ -307,16 +325,17 @@ new_dog2 = {
     'owner_id': 4
 }
 
-
-# print(main_db('new_user', new_user1))
-# print(main_db('new_user', new_user2))
-# print(main_db('new_user', new_user3))
-# print(main_db('new_user', new_user4))
-# print(main_db('new_dog', new_dog1))
-# print(main_db('new_dog', new_dog2))
-# print(main_db('new_friends', 3, 2))
-# print(main_db('new_friends', 2, 4))
-# print(main_db('send_request', 3, 1, "Hello friend!!"))
+print(main_db('new_user', new_user1))
+print(main_db('new_user', new_user2))
+print(main_db('new_user', new_user3))
+print(main_db('new_user', new_user4))
+print(main_db('new_dog', new_dog1))
+print(main_db('new_dog', new_dog2))
+print(main_db('new_friends', 3, 2))
+print(main_db('new_friends', 2, 4))
+print(main_db('send_request', 1, 2, "Hello friend!!"))
+print(main_db('send_request', 3, 2, "Hello friend!!"))
+print(main_db('send_request', 4, 2, "Hello friend!!"))
 # print(main_db('update_request', 1, 3, "accept"))
 # print(main_db('get_dogs', 2))
 # print(main_db('find_match', 2, 'Yaseef'))

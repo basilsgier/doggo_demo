@@ -29,120 +29,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+let user_id = 2;
 export default function NestedGrid() {
   const classes = useStyles();
 
-  const [requests, setRequests] = React.useState([{
-    "id": "0",
-    'first_name': "Basil",
-    'last_name': "Sgier",
-    'user_name': "basilsgier",
-    'age': 25,
-    'gender': "M",
-    'city': "Haifa",
-    'status': 'not_responded',
-    'img_url':"Capture.PNG",
-    'dog':
-    {
-      "id": "0",
-    'photo_url': "Capture.PNG",
-    'dog_name': "shin",
-    'description': "a lovely husky dog 4 months old",
-    'owner_id': 2,
-    }
-},
-{
-    "id": "1",
-    'first_name': "Aseel",
-    'last_name': "Sakass",
-    'user_name': "AseelSakas",
-    'password': "123",
-    'age': 25,
-    'gender': "F",
-    'city': "Yaseef",
-    'status': 'not_responded',
-    'img_url':"Capture2.jpeg",
-    'dog':{
-      "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
-    'dog_name': "shin",
-    'description': "a lovely husky dog 4 months old",
-    'owner_id': 2,
-    }
-    
-},{
-    "id": "2",
-    'first_name': "Amjad",
-    'last_name': "Bashiti",
-    'user_name': "AmjadB",
-    'password': "123",
-    'age': 24,
-    'gender': "M",
-    'city': "Yaseef",
-    'status': 'not_responded',
-    'dog':{
-      "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
-    'dog_name': "milano",
-    'description': "a lovely bommernian dog 2 years old",
-    'owner_id': 4,
-    }},
-  {
-    "id": "3",
-    'first_name': "Test",
-    'last_name': "Bashiti",
-    'user_name': "AmjadB",
-    'password': "123",
-    'age': 24,
-    'gender': "M",
-    'city': "Yaseef",
-    'status': 'not_responded',
-    'dog':{
-      "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
-    'dog_name': "milano",
-    'description': "a lovely bommernian dog 2 years old",
-    'owner_id': 4,
-    }
-  },{
-    "id": "4",
-    'first_name': "Test2",
-    'last_name': "Bla",
-    'user_name': "AmjadB",
-    'password': "123",
-    'age': 24,
-    'gender': "M",
-    'city': "Yaseef",
-    'status': 'not_responded',
-    'dog':{
-      "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
-    'dog_name': "milano",
-    'description': "a lovely bommernian dog 2 years old",
-    'owner_id': 4,
-    }
-  },
-  {
-    "id": "5",
-    'first_name': "Test3",
-    'last_name': "Bla",
-    'user_name': "AmjadB",
-    'password': "123",
-    'age': 24,
-    'gender': "M",
-    'city': "Yaseef",
-    'status': 'not_responded',
-    'dog':{
-      "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
-    'dog_name': "milano",
-    'description': "a lovely bommernian dog 2 years old",
-    'owner_id': 4,
-    }
-  }
-]);
+  const [requests, setRequests] = React.useState([]);
+  const [fetching, setFetching] = React.useState(true);
 
+  if (fetching){
+    let url = new URL("http://127.0.0.1:3001/requests/" + user_id + "/");
+    fetch(url, {
+      method: "GET",
+      headers: {'Content-Type':'application/json'},
+    })
+      .then((res) => res.json())
+      .then((finalRes) => {setRequests(finalRes); setFetching(false); console.log("REQS", finalRes)})
+      .catch((error) => {console.log(error)});
+  }
   const handleRequestAccept = (id) => {
     console.log("EVENT", id)
     console.log("BEFORE", requests)
@@ -168,8 +71,6 @@ export default function NestedGrid() {
   };
 
    const handleRequestDecline = (id) => {
-    console.log("EVENT", id)
-    console.log("BEFORE", requests)
     let temp_req = [...requests]
     temp_req.map((request) => {
       if (request.id === id){
@@ -177,7 +78,6 @@ export default function NestedGrid() {
       }
     })
     setRequests(temp_req);
-    console.log("AFTER", requests)
     /*send to route */
     // let status = event.target.checked ? 1 : 0;
     // let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/" + status  + '/');
@@ -199,7 +99,7 @@ export default function NestedGrid() {
           <Grid item xs={4}> <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item className={classes.image}>
-            <img className={classes.img} alt="complex" src={"http://localhost:3001/img/" + request.img_url + '/'} />
+            <img className={classes.img} alt="complex" src={"http://localhost:3001/img/" + request.image_url + '/'} />
           </Grid>
           <Grid item xs={10} sm container>
             <Grid item xs container direction="column" spacing={2}>
@@ -208,10 +108,10 @@ export default function NestedGrid() {
                   {request.first_name + " " + request.last_name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  { "My dog name is " + request.dog.dog_name}
+                  {request.dog.length >= 1 ? "My dog name is " + request.dog[0].dog_name : ""}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {request.dog.description + " located in " + request.city}
+                {request.dog.length >= 1 ?  request.dog[0].description + " located in " + request.city : ""}
                 </Typography>
               </Grid>
               {request.status === 'not_responded' ?
@@ -241,6 +141,7 @@ export default function NestedGrid() {
 
   return (
     <div className={classes.root}>
+    {requests.length == 0 ? null : 
       <Grid container spacing={1}>
       {requests.map((request, idx) => {
         if (idx % 3 == 0){
@@ -249,7 +150,7 @@ export default function NestedGrid() {
           </Grid>)
         }
       })}
-      </Grid>
+      </Grid>}
     </div>
   );
 }

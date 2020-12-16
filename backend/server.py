@@ -38,6 +38,13 @@ def update_status(id, status):
 def get_img(img_url):
     return app.send_static_file(img_url)
 
+@app.route('/requests/<id>/')
+def get_requests(id):
+    response = main_db('get_requests', id)
+    if response and 'error' in response:
+        return Response(json.dumps({'Error': response['details']})), response['error']
+    return Response(json.dumps(response))
+
 
 port_number = 3001
 if __name__ == '__main__':
