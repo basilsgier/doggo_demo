@@ -88,13 +88,14 @@ const IOSSwitch  = withStyles((theme) => ({
 
 }))(Switch);
 
-let user_id = 4;
+// our login
+let user_id = 2;
+
 function Profile(props){ /*need to get props */
 const [firstTime, setFirstTime] = React.useState(true);
 const [state, setState] = React.useState({});
 if (firstTime)
 {
-    
     let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/");
     fetch(url, {
       method: "GET",
