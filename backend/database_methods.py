@@ -200,7 +200,7 @@ def get_requests(cursor, args):
         res = cursor.fetchall()
         if len(res) == 0:
             return {}
-        return res[0]
+        return res
     except Exception as e:
         return {'error': 500, 'details': 'getting user' + str(e)}
 
