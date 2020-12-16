@@ -92,9 +92,9 @@ const IOSSwitch  = withStyles((theme) => ({
 let user_id = 2;
 
 function Profile(props){ /*need to get props */
-const [firstTime, setFirstTime] = React.useState(true);
+const [fetching, setFetching] = React.useState(true);
 const [state, setState] = React.useState({});
-if (firstTime)
+if (fetching)
 {
     let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/");
     fetch(url, {
@@ -104,7 +104,7 @@ if (firstTime)
       .then((res) => res.json())
       .then((finalRes) => {setState(finalRes);
                     console.log("RES", finalRes, state); 
-                    setFirstTime(false);})
+                    setFetching(false);})
       .catch((error) => {console.log(error)});
     
 }
@@ -148,7 +148,7 @@ if (firstTime)
       <div>
 
       
-        {firstTime ? null :  
+        {state && state.dog && state.dog.length !== 0 ?  
 
       <div
         style={{
@@ -212,7 +212,7 @@ if (firstTime)
 
 
 </Card>
-</div>
+</div> : null
         } 
         </div>
   );
