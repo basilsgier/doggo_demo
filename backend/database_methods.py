@@ -198,10 +198,11 @@ def get_requests(cursor, args):
         query = f"SELECT * FROM requests WHERE receiver_id = '{_id}';"
         cursor.execute(query)
         res = cursor.fetchall()
-        dogs = main_db('get_dogs', _id)
-        res['dog'] = dogs
         if len(res) == 0:
-            return {}
+            return []
+        for user in res:
+            user['dog'] = main_db('get_dogs', user['id'])
+            user['status'] = 'not_responded'
         return res
     except Exception as e:
         return {'error': 500, 'details': 'getting user' + str(e)}
