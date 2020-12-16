@@ -3,7 +3,7 @@ import json
 from flask_cors import CORS
 from database_methods import main_db
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='pictures')
 CORS(app)
 
 
@@ -15,8 +15,13 @@ def pokemon_update_types():
 @app.route('/user/<id>/')
 def get_profile(id):
     user = main_db('get_user', id)
+
     if not user:
         return Response(json.dumps({'Success': 'user not found'}))
+    dog = main_db('get_dogs', id)
+    if 'error' in dog:
+        return Response(json.dumps({'Error': dog['details']})), dog['error']
+    user['dog'] = dog
     return Response(json.dumps(user))
 
 
@@ -27,6 +32,11 @@ def update_status(id, status):
     if response and 'error' in response:
         return Response(json.dumps({'Error': response['details']})), response['error']
     return Response(json.dumps({"Success": 'status updated successfully'}))
+
+
+@app.route('/img/<img_url>/')
+def get_img(img_url):
+    return app.send_static_file(img_url)
 
 
 port_number = 3001

@@ -88,7 +88,7 @@ const IOSSwitch  = withStyles((theme) => ({
 
 }))(Switch);
 
-let user_id = 2;
+let user_id = 4;
 function Profile(props){ /*need to get props */
 const [firstTime, setFirstTime] = React.useState(true);
 const [state, setState] = React.useState({});
@@ -172,7 +172,7 @@ if (firstTime)
       />
       <CardMedia
         className={cardClasses.media}
-        image= "amjad.jpg"
+        image= {"http://localhost:3001/img/"+ state.dog[0].photo_url}
         title="Paella dish"
       />
       <CardContent>

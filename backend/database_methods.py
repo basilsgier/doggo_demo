@@ -275,29 +275,29 @@ new_user4 = {
 
 new_dog1 = {
     "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
-    'dog_name': "shin",
+    'photo_url': "Capture.PNG",
+    'dog_name': "shane",
     'description': "a lovely husky dog 4 months old",
     'owner_id': 2,
 }
 
 new_dog2 = {
     "id": "0",
-    'photo_url': "C:\\Users\\basil\\Desktop\\excellant_team\\python_projects\\doggo_demo\\backend\\pictures\\Capture.PNG",
+    'photo_url': "Capture2.jpeg",
     'dog_name': "milano",
     'description': "a lovely bommernian dog 2 years old",
     'owner_id': 4,
 }
 
-#
-# print(main_db('new_user', new_user1))
-# print(main_db('new_user', new_user2))
-# print(main_db('new_user', new_user3))
-# print(main_db('new_user', new_user4))
-# print(main_db('new_dog', new_dog1))
-# print(main_db('new_dog', new_dog2))
-# print(main_db('new_friends', 3, 2))
-# print(main_db('new_friends', 2, 4))
+
+print(main_db('new_user', new_user1))
+print(main_db('new_user', new_user2))
+print(main_db('new_user', new_user3))
+print(main_db('new_user', new_user4))
+print(main_db('new_dog', new_dog1))
+print(main_db('new_dog', new_dog2))
+print(main_db('new_friends', 3, 2))
+print(main_db('new_friends', 2, 4))
 # print(main_db('send_request', 3, 1, "Hello friend!!"))
 # print(main_db('update_request', 1, 3, "accept"))
 # print(main_db('get_dogs', 2))
