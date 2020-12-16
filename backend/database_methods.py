@@ -192,6 +192,22 @@ def get_user(cursor, args):
         return {'error': 500, 'details': 'getting user' + str(e)}
 
 
+def get_requests(cursor, args):
+    try:
+        _id = args[0]
+        query = f"SELECT * FROM requests WHERE receiver_id = '{_id}';"
+        cursor.execute(query)
+        res = cursor.fetchall()
+        if len(res) == 0:
+            return []
+        for user in res:
+            user['dog'] = main_db('get_dogs', user['id'])
+            user['status'] = 'not_responded'
+        return res
+    except Exception as e:
+        return {'error': 500, 'details': 'getting user' + str(e)}
+
+
 def main_db(action, *args):
     try:
         with connection.cursor() as cursor:
@@ -215,6 +231,8 @@ def main_db(action, *args):
                 return get_user(cursor, args)
             elif action == 'change_status':
                 return change_status(cursor, args)
+            elif action == 'get_requests':
+                return get_requests(cursor, args)
             else:
                 return {'error': 400, 'details': 'Invalid option '}
     except Exception as err:
@@ -278,7 +296,7 @@ new_dog1 = {
     'photo_url': "Capture.PNG",
     'dog_name': "shane",
     'description': "a lovely husky dog 4 months old",
-    'owner_id': 2,
+    'owner_id': 2
 }
 
 new_dog2 = {
@@ -286,18 +304,18 @@ new_dog2 = {
     'photo_url': "Capture2.jpeg",
     'dog_name': "milano",
     'description': "a lovely bommernian dog 2 years old",
-    'owner_id': 4,
+    'owner_id': 4
 }
 
 
-print(main_db('new_user', new_user1))
-print(main_db('new_user', new_user2))
-print(main_db('new_user', new_user3))
-print(main_db('new_user', new_user4))
-print(main_db('new_dog', new_dog1))
-print(main_db('new_dog', new_dog2))
-print(main_db('new_friends', 3, 2))
-print(main_db('new_friends', 2, 4))
+# print(main_db('new_user', new_user1))
+# print(main_db('new_user', new_user2))
+# print(main_db('new_user', new_user3))
+# print(main_db('new_user', new_user4))
+# print(main_db('new_dog', new_dog1))
+# print(main_db('new_dog', new_dog2))
+# print(main_db('new_friends', 3, 2))
+# print(main_db('new_friends', 2, 4))
 # print(main_db('send_request', 3, 1, "Hello friend!!"))
 # print(main_db('update_request', 1, 3, "accept"))
 # print(main_db('get_dogs', 2))
