@@ -12,7 +12,8 @@ create TABLE user(
     age INT,
     gender VARCHAR(5),
     city VARCHAR(30),
-    phone_number VARCHAR (15)
+    phone_number VARCHAR (15),
+    status BOOLEAN
 );
 
 create TABLE friends_connection(
