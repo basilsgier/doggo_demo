@@ -246,7 +246,115 @@ def main_db(action, *args):
         print("500 - Internal error", err)
 
 
-new_user1 = {
+user_1 = {
+    "id": "0",
+    'first_name': "Aseel",
+    'last_name': "Sakas",
+    'user_name': "AseelSakas",
+    'password': "23",
+    'age': 25,
+    'gender': "F",
+    'city': "Kfar Yassif",
+
+    'phone_number': "0544280415",
+    'status': 0,
+    'image_url': 'aseel.jpeg',
+}
+dog_1 = {
+    "id": "0",
+    'photo_url': "shane.jpeg",
+    'dog_name': "Shane",
+    'description': "Climate change is real but i'm loving it!",
+    'owner_id': 1
+}
+
+user_2 = {
+    "id": "0",
+    'first_name': "Paris",
+    'last_name': "Hilton",
+    'user_name': "paris.hilton",
+    'password': "23",
+    'age': 25,
+    'gender': "F",
+    'city': "Haifa",
+
+    'phone_number': "054228899",
+    'status': 0,
+    'image_url': 'paris_hilton.jpg',
+}
+
+dog_2 = {
+    "id": "0",
+    'photo_url': "chiuaua.jpg",
+    'dog_name': "Tinkerbell",
+    'description': "Louis Vuitton adores me!",
+    'owner_id': 2
+}
+user_3 = {
+    "id": "0",
+    'first_name': "Wisam",
+    'last_name': "Armaly",
+    'user_name': "wisamA",
+    'password': "23",
+    'age': 24,
+    'gender': "M",
+    'city': "Haifa",
+    'phone_number': "0533013218",
+    'status': 0,
+    'image_url': 'wisam.jpeg',
+}
+dog_3 = {
+    "id": "0",
+    'photo_url': "wisam_max.jpeg",
+    'dog_name': "Max",
+    'description': "Hard from the outside soft from the inside",
+    'owner_id': 3
+}
+
+user_4 = {
+    "id": "0",
+    'first_name': "Barack",
+    'last_name': "Obama",
+    'user_name': "baracks",
+    'password': "23",
+    'age': 59,
+    'gender': "M",
+    'city': "Kfar Yassif",
+    'phone_number': "053*******",
+    'status': 0,
+    'image_url': 'obama.jpg',
+}
+
+dog_4 = {
+    "id": "0",
+    'photo_url': "obama_bo.jpg",
+    'dog_name': "Bo",
+    'description': "You can call me mr BO",
+    'owner_id': 4
+}
+
+
+user_5 = {
+    "id": "0",
+    'first_name': "Vladimir",
+    'last_name': "Putin",
+    'user_name': "SU",
+    'password': "100",
+    'age': 68,
+    'gender': "M",
+    'city': "Kfar Yassif",
+    'phone_number': "053*******",
+    'status': 0,
+    'image_url': 'putin.jpg',
+}
+dog_5 = {
+    "id": "0",
+    'photo_url': "laika.png",
+    'dog_name': "Laika",
+    'description': "Why run when you can float",
+    'owner_id': 5
+}
+user_6 = {
     "id": "0",
     'first_name': "Basil",
     'last_name': "Sgier",
@@ -255,29 +363,20 @@ new_user1 = {
     'age': 25,
     'gender': "M",
     'city': "Haifa",
-
-    'phone_number': "0533013218",
+    'phone_number': "0533082496",
     'status': 0,
-    'image_url': 'Capture2.jpeg',
+    'image_url': 'basil.jpeg',
 
 }
-
-new_user2 = {
+dog_6 = {
     "id": "0",
-    'first_name': "Aseel",
-    'last_name': "Sakass",
-    'user_name': "AseelSakas",
-    'password': "123",
-    'age': 25,
-    'gender': "F",
-    'city': "Yaseef",
-
-    'phone_number': "054421313",
-    'status': 0,
-    'image_url': 'Capture.PNG',
+    'photo_url': "basil_dog.jpeg",
+    'dog_name': "Milano",
+    'description': "Disney princesses have nothing on me",
+    'owner_id': 6
 }
 
-new_user3 = {
+user_7 = {
     "id": "0",
     'first_name': "Amjad",
     'last_name': "Bashiti",
@@ -285,74 +384,60 @@ new_user3 = {
     'password': "123",
     'age': 24,
     'gender': "M",
-    'city': "Yaseef",
+    'city': "Haifa",
 
-    'phone_number': "0599321313",
+    'phone_number': "0544269758",
     'status': 0,
-    'image_url': 'Capture.PNG'
+    'image_url': 'amjad.jpeg'
+}
+dog_7 = {
+    "id": "0",
+    'photo_url': "lord.jpeg",
+    'dog_name': "Lord",
+    'description': "Elegance is an attitude",
+    'owner_id': 7
 }
 
-new_user4 = {
+user_8 = {
     "id": "0",
-    'first_name': "adam",
-    'last_name': "nope",
-    'user_name': "aaa",
-    'password': "1",
-    'age': 32,
+    'first_name': "The",
+    'last_name': "Queen",
+    'user_name': "lili",
+    'password': "123",
+    'age': 94,
     'gender': "M",
-    'city': "Yaseef",
+    'city': "Haifa",
 
-    'phone_number': "053321313",
+    'phone_number': "0547824589",
     'status': 0,
-    'image_url': 'Capture2.jpeg'
+    'image_url': 'queen.jpg'
 }
-
-new_user5 = {
+dog_8 = {
     "id": "0",
-    'first_name': "Sameer",
-    'last_name': "...",
-    'user_name': "aaa",
-    'password': "1",
-    'age': 32,
-    'gender': "M",
-    'city': "Yaseef",
-
-    'phone_number': "053321313",
-    'status': 0,
-    'image_url': 'Capture.PNG'
+    'photo_url': "queen_dog.jpg",
+    'dog_name': "Corgi",
+    'description': "Where's my butler?",
+    'owner_id': 8
 }
 
-new_dog1 = {
-    "id": "0",
-    'photo_url': "Capture.PNG",
-    'dog_name': "shane",
-    'description': "a lovely husky dog 4 months old",
-    'owner_id': 1
-}
 
-new_dog2 = {
-    "id": "0",
-    'photo_url': "Capture2.jpeg",
-    'dog_name': "milano",
-    'description': "a lovely bommernian dog 2 years old",
-    'owner_id': 4
-}
-new_dog3 = {
-    "id": "0",
-    'photo_url': "Capture2.jpeg",
-    'dog_name': "Dog",
-    'description': "a lovely bommernian dog 10 years old",
-    'owner_id': 5
-}
+print(main_db('new_user', user_1))
+print(main_db('new_user', user_2))
+print(main_db('new_user', user_3))
+print(main_db('new_user', user_4))
+print(main_db('new_user', user_5))
+print(main_db('new_user', user_6))
+print(main_db('new_user', user_7))
+print(main_db('new_user', user_8))
 
-# print(main_db('new_user', new_user1))
-# print(main_db('new_user', new_user2))
-# print(main_db('new_user', new_user3))
-# print(main_db('new_user', new_user4))
-# print(main_db('new_user', new_user5))
-# print(main_db('new_dog', new_dog1))
-# print(main_db('new_dog', new_dog2))
-# print(main_db('new_dog', new_dog3))
+print(main_db('new_dog', dog_1))
+print(main_db('new_dog', dog_2))
+print(main_db('new_dog', dog_3))
+print(main_db('new_dog', dog_4))
+print(main_db('new_dog', dog_5))
+print(main_db('new_dog', dog_6))
+print(main_db('new_dog', dog_7))
+print(main_db('new_dog', dog_8))
 # print(main_db('new_friends', 3, 2))
 # print(main_db('new_friends', 2, 4))
 # print(main_db('send_request', 5, 2, "Hello friend!!"))
@@ -364,3 +449,4 @@ new_dog3 = {
 # print(main_db('status_on_friends', 2))
 # print(main_db('find_match', 2, 'Yaseef'))
 # print(main_db('change_status', 2, 1))
+
