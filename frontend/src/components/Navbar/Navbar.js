@@ -23,8 +23,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import SettingsIcon from "@material-ui/icons/Settings";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-
-const menuId = "primary-search-account-menu";
+import PetsIcon from '@material-ui/icons/Pets';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import FaceOutlinedIcon from '@material-ui/icons/FaceOutlined';const menuId = "primary-search-account-menu";
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
@@ -205,11 +206,11 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
           <span></span>
           <Typography variant="h6" className={classes.title} align="center">
-            Dogs Walking
+            Doggo
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton
+            <FaceOutlinedIcon
               edge="start"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -218,13 +219,8 @@ export default function PersistentDrawerLeft(props) {
               color="inherit"
             >
               <AccountCircle style={{ fontSize: 25 }} />
-            </IconButton>
+            </FaceOutlinedIcon>
             <span> &nbsp; &nbsp;</span>
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <SettingsIcon style={{ fontSize: 25 }} />
-              </Badge>
-            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
@@ -260,7 +256,7 @@ export default function PersistentDrawerLeft(props) {
             >
               <ListItemIcon>
                 {" "}
-                <ApartmentIcon />{" "}
+                <PetsIcon />{" "}
               </ListItemIcon>
               <ListItemText primary={"Match"} />
             </ListItem>
@@ -276,7 +272,7 @@ export default function PersistentDrawerLeft(props) {
             >
               <ListItemIcon>
                 {" "}
-                <MenuBookIcon />{" "}
+                <EmojiPeopleIcon />{" "}
               </ListItemIcon>
               <ListItemText primary={"Requests"} />
             </ListItem>

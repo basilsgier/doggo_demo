@@ -108,19 +108,6 @@ if (fetching)
     
 }
 
-// var props = {
-//     "logedin_id": "0",
-//     'first_name': "Amjad",
-//     'last_name': "Bashiti",
-//     'user_name': "amjad.love",
-//     'password': "555",
-//     'age': 24,
-//     'gender': "Male",
-//     'city': "Yassef",
-//     'phone_number': "0526488801",
-//     'img_url': '/static/pictures/Capture.PNG'
-//     };
-   /*card */
   const cardClasses = cardStyles();
   const bull = <span className={cardClasses.bullet}>•</span>;
   const avatarClasses = avatarStyles();
