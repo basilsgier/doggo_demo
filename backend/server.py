@@ -38,9 +38,30 @@ def update_status(id, status):
 def get_img(img_url):
     return app.send_static_file(img_url)
 
+
 @app.route('/requests/<id>/')
 def get_requests(id):
     response = main_db('get_requests', id)
+    if response and 'error' in response:
+        return Response(json.dumps({'Error': response['details']})), response['error']
+    return Response(json.dumps(response))
+
+
+@app.route('/requests/<id>/', methods=["PUT"])
+def update_request(id):
+    params = request.get_json()
+    print(id, params)
+    response = main_db('update_request', id, params.get('sender_id'), params.get('response'))
+    print(response)
+    if response and 'error' in response:
+        return Response(json.dumps({'Error': response['details']})), response['error']
+    return Response(json.dumps({"Success": "Updated Successfully"}))
+
+
+@app.route('/user/<id>/match/')
+def get_matches(id):
+    id = int(id)
+    response = main_db('find_match', id)
     if response and 'error' in response:
         return Response(json.dumps({'Error': response['details']})), response['error']
     return Response(json.dumps(response))

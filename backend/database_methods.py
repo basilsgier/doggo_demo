@@ -72,7 +72,10 @@ def get_friends(cursor, _id):
 def find_match(cursor, args):
     try:
         user_id = args[0]
-        user_city = args[1]
+        query = f"SELECT * from user where id = '{user_id}'"
+        cursor.execute(query)
+        res = cursor.fetchall()
+        user_city = res[0]['city']
         query = f"SELECT * from user where city = '{user_city}'"
         cursor.execute(query)
         res = cursor.fetchall()
@@ -88,24 +91,17 @@ def find_match(cursor, args):
         cursor.execute(query)
         res2 = cursor.fetchall()
         friends_id = []
-        # friends = []
-        # not_friends = []
         for relation in res2:
             if relation['id1'] == user_id:
                 friends_id.append(relation['id2'])
             if relation['id2'] == user_id:
                 friends_id.append(relation['id1'])
         for user in result:
+            user['dog'] = main_db('get_dog', user['id'])
             if user['id'] in friends_id:
                 final_res['friends'].append(user)
             else:
                 final_res['not_friends'].append(user)
-        # query = f"SELECT * from requests where sender_id = '{user_id}' or id2 = '{user_id}'"
-        # cursor.execute(query)
-        # res3 = cursor.fetchall()
-        #
-        # print("FRIENDS", final_res['friends'])
-        # print("NOT_FRIENDS", not_friends)
         return final_res
     except Exception as e:
         return {'error': 500, 'details': 'finding match' + str(e)}
@@ -116,6 +112,7 @@ def update_request(cursor, args):
         logged_in_id = args[0]
         id2 = args[1]
         respond = args[2]
+        print(logged_in_id, id2, respond)
         if respond == 'accept':
             query = f"INSERT into friends_connection VALUES ('{logged_in_id}', '{id2}');"
             cursor.execute(query)
@@ -127,6 +124,7 @@ def update_request(cursor, args):
             query = f"DELETE FROM requests where receiver_id = '{logged_in_id}' and sender_id = '{id2}';"
             cursor.execute(query)
             connection.commit()
+        print("FINISHED")
     except Exception as err:
         print("500 - Internal error", err)
 
@@ -276,7 +274,7 @@ new_user2 = {
 
     'phone_number': "054421313",
     'status': 0,
-'image_url': 'Capture.PNG',
+    'image_url': 'Capture.PNG',
 }
 
 new_user3 = {
@@ -306,7 +304,22 @@ new_user4 = {
 
     'phone_number': "053321313",
     'status': 0,
-'image_url': 'Capture2.jpeg'
+    'image_url': 'Capture2.jpeg'
+}
+
+new_user5 = {
+    "id": "0",
+    'first_name': "Sameer",
+    'last_name': "...",
+    'user_name': "aaa",
+    'password': "1",
+    'age': 32,
+    'gender': "M",
+    'city': "Yaseef",
+
+    'phone_number': "053321313",
+    'status': 0,
+    'image_url': 'Capture.PNG'
 }
 
 new_dog1 = {
@@ -324,18 +337,27 @@ new_dog2 = {
     'description': "a lovely bommernian dog 2 years old",
     'owner_id': 4
 }
+new_dog3 = {
+    "id": "0",
+    'photo_url': "Capture2.jpeg",
+    'dog_name': "Dog",
+    'description': "a lovely bommernian dog 10 years old",
+    'owner_id': 5
+}
 
-print(main_db('new_user', new_user1))
-print(main_db('new_user', new_user2))
-print(main_db('new_user', new_user3))
-print(main_db('new_user', new_user4))
-print(main_db('new_dog', new_dog1))
-print(main_db('new_dog', new_dog2))
-print(main_db('new_friends', 3, 2))
-print(main_db('new_friends', 2, 4))
-print(main_db('send_request', 1, 2, "Hello friend!!"))
-print(main_db('send_request', 3, 2, "Hello friend!!"))
-print(main_db('send_request', 4, 2, "Hello friend!!"))
+# print(main_db('new_user', new_user1))
+# print(main_db('new_user', new_user2))
+# print(main_db('new_user', new_user3))
+# print(main_db('new_user', new_user4))
+# print(main_db('new_user', new_user5))
+# print(main_db('new_dog', new_dog1))
+# print(main_db('new_dog', new_dog2))
+# print(main_db('new_dog', new_dog3))
+# print(main_db('new_friends', 3, 2))
+# print(main_db('new_friends', 2, 4))
+# print(main_db('send_request', 5, 2, "Hello friend!!"))
+# print(main_db('send_request', 3, 2, "Hello friend!!"))
+# print(main_db('send_request', 4, 2, "Hello friend!!"))
 # print(main_db('update_request', 1, 3, "accept"))
 # print(main_db('get_dogs', 2))
 # print(main_db('find_match', 2, 'Yaseef'))

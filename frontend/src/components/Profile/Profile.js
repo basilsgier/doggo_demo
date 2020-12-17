@@ -89,7 +89,7 @@ const IOSSwitch  = withStyles((theme) => ({
 }))(Switch);
 
 // our login
-let user_id = 1;
+let user_id = 4;
 
 function Profile(props){ /*need to get props */
 const [fetching, setFetching] = React.useState(true);
@@ -134,8 +134,7 @@ if (fetching)
     let status = event.target.checked ? 1 : 0;
     let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/" + status  + '/');
     fetch(url, {
-      method: "PUT",
-      headers: {'Content-Type':'application/json'},
+      method: "PUT"
     })
       .then((res) => res.json())
       .then((finalRes) => {
@@ -173,7 +172,6 @@ if (fetching)
       <CardMedia
         className={cardClasses.media}
         image= {"http://localhost:3001/img/"+ state.dog[0].photo_url}
-        title="Paella dish"
       />
       <CardContent>
         <Typography variant="h6" color="initial" component="p">

@@ -40,10 +40,18 @@ export default function NestedGrid() {
     let url = new URL("http://127.0.0.1:3001/requests/" + user_id + "/");
     fetch(url, {
       method: "GET",
-      headers: {'Content-Type':'application/json'},
     })
       .then((res) => res.json())
-      .then((finalRes) => {setRequests(finalRes); setFetching(false); console.log("REQS", finalRes)})
+      .then((finalRes) => { 
+        if("Error" in finalRes){
+                          setRequests({});
+                          
+        }
+      else{
+         setRequests(finalRes); 
+         setFetching(false);
+      }
+       console.log("REQS", finalRes)})
       .catch((error) => {console.log(error)});
   }
   const handleRequestAccept = (id) => {
@@ -53,21 +61,20 @@ export default function NestedGrid() {
     temp_req.map((request) => {
       if (request.id === id){
         request['status'] = 'accept';
+        let url = new URL("http://127.0.0.1:3001/requests/" + user_id + "/");
+    fetch(url, {
+      method: "PUT",
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({'sender_id': id,
+            'response': 'accept'})
+    })
+      .then((res) => res.json())
+      .then((finalRes) => {
+                    console.log("STATUS", finalRes);})
+      .catch((error) => {console.log(error)});
       }
     })
     setRequests(temp_req);
-    console.log("AFTER", requests)
-    /*send to route */
-    // let status = event.target.checked ? 1 : 0;
-    // let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/" + status  + '/');
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {'Content-Type':'application/json'},
-    // })
-    //   .then((res) => res.json())
-    //   .then((finalRes) => {
-    //                 console.log("STATUS", finalRes);})
-    //   .catch((error) => {console.log(error)});
   };
 
    const handleRequestDecline = (id) => {
@@ -75,20 +82,20 @@ export default function NestedGrid() {
     temp_req.map((request) => {
       if (request.id === id){
         request['status'] = 'reject';
+        let url = new URL("http://127.0.0.1:3001/requests/" + user_id + "/");
+    fetch(url, {
+      method: "PUT",
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({'sender_id': id,
+            'response': 'decline'})
+    })
+      .then((res) => res.json())
+      .then((finalRes) => {
+                    console.log("STATUS", finalRes);})
+      .catch((error) => {console.log(error)});
       }
     })
     setRequests(temp_req);
-    /*send to route */
-    // let status = event.target.checked ? 1 : 0;
-    // let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/" + status  + '/');
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {'Content-Type':'application/json'},
-    // })
-    //   .then((res) => res.json())
-    //   .then((finalRes) => {
-    //                 console.log("STATUS", finalRes);})
-    //   .catch((error) => {console.log(error)});
   };
 
   function FormRow(props) {
@@ -141,7 +148,7 @@ export default function NestedGrid() {
 
   return (
     <div className={classes.root}>
-    {requests.length == 0 ? null : 
+    {requests.length == 0 ? <div>No Requests</div> : 
       <Grid container spacing={1}>
       {requests.map((request, idx) => {
         if (idx % 3 == 0){
