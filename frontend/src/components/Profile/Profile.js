@@ -89,7 +89,7 @@ const IOSSwitch  = withStyles((theme) => ({
 }))(Switch);
 
 // our login
-let user_id = 2;
+let user_id = 1;
 
 function Profile(props){ /*need to get props */
 const [fetching, setFetching] = React.useState(true);
@@ -99,13 +99,12 @@ if (fetching)
     let url = new URL("http://127.0.0.1:3001/user/" + user_id + "/");
     fetch(url, {
       method: "GET",
-      headers: {'Content-Type':'application/json'},
     })
       .then((res) => res.json())
       .then((finalRes) => {setState(finalRes);
                     console.log("RES", finalRes, state); 
                     setFetching(false);})
-      .catch((error) => {console.log(error)});
+      .catch((error) => {console.log("ERR", error)});
     
 }
 

@@ -15,7 +15,7 @@ def pokemon_update_types():
 @app.route('/user/<id>/')
 def get_profile(id):
     user = main_db('get_user', id)
-
+    print("USER", user)
     if not user:
         return Response(json.dumps({'Success': 'user not found'}))
     dog = main_db('get_dogs', id)
